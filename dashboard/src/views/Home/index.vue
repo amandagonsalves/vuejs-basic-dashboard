@@ -1,3 +1,3 @@
 <template>
-  <h1>Aqui é a home</h1>
+  <h1 class="font-black text-brand-main">Aqui é a home</h1>
 </template>
