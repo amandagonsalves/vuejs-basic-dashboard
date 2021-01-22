@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CustomHeader @create-account="handleAccountCreate" @login="handleLogin" />
+    <CustomHeader @create-account="handleAccountCreate" @login="handleLogin" @createAccount="handleAccountCreate" />
     <Contact />
     <div class="flex justify-center py-10 bg-brand-gray">
       <p class="font-medium text-center text-gray-800">
@@ -15,11 +15,14 @@ import CustomHeader from "./CustomHeader";
 import Contact from "./Contact";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+import useModal from '../../hooks/useModal';
 
 export default {
   components: { CustomHeader, Contact },
   setup() {
     const router = useRouter();
+    const modal = useModal();
+
     onMounted(() => {
       const token = window.localStorage.getItem("token");
 
@@ -28,9 +31,17 @@ export default {
       }
     });
 
-    function handleLogin() {}
+    function handleLogin() {
+      modal.open({
+        component: "ModalLogin"
+      });
+    }
 
-    function handleAccountCreate() {}
+    function handleAccountCreate() {
+      modal.open({
+        component: "ModalCreateAccount"
+      });
+    }
 
     return {
       handleLogin,
