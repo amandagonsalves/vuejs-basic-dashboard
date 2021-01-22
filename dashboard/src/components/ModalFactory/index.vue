@@ -36,6 +36,7 @@ export default {
   },
   setup() {
     const modal = useModal();
+
     const state = reactive({
       isActive: false,
       component: {},
@@ -53,6 +54,7 @@ export default {
 
     function handleModalToggle(payload) {
       console.log('payload', payload)
+      console.log('modal', modal)
       if (payload.status) {
         state.component = payload.component;
         state.props = payload.props;
