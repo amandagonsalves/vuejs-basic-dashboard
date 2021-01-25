@@ -114,9 +114,7 @@ export default {
       validateEmptyAndEmail
     );
 
-    const {
-      value: passwordValue,
-      errorMessage: passwordErrorMessage,
+    const { value: passwordValue, errorMessage: passwordErrorMessage,
     } = useField("password", validateEmptyAndLength3);
 
     const state = reactive({
@@ -136,36 +134,43 @@ export default {
       },
     });
 
+    async function login({ email, password }) {
+      const { data, errors } = await services.auth.login({ email, password });
+
+      if (!errors) {
+        window.localStorage.setItem("token", data.token);
+
+        router.push({ name: "Feedbacks" });
+        modal.close();
+
+        return;
+      }
+
+      state.isLoading = false;
+    }
+
     async function handleSubmit() {
       try {
         toast.clear();
         state.isLoading = true;
 
-        const { data, errors } = await services.auth.login({
+        const { errors } = await services.auth.register({
+          name: state.name.value,
           email: state.email.value,
           password: state.password.value,
         });
 
         if (!errors) {
-          window.localStorage.setItem("token", data.token);
-          state.isLoading = false;
-
-          router.push({ name: "Feedbacks" });
-          modal.close();
+          await login({
+            email: state.email.value,
+            password: state.password.value,
+          });
 
           return;
         }
 
-        if (errors.status === 404) {
-          toast.error("Email não encontrado.");
-        }
-
-        if (errors.status === 401) {
-          toast.error("Email ou senha inválidos.");
-        }
-
         if (errors.status === 400) {
-          toast.error("Ocorreu um erro ao fazer login.");
+          toast.error("Ocorreu um erro ao criar a conta.");
         }
 
         state.isLoading = false;
@@ -173,7 +178,7 @@ export default {
         state.isLoading = false;
         state.hasErrors = !!error;
 
-        toast.error("Ocorreu um erro ao fazer login.");
+        toast.error("Ocorreu um erro ao criar a conta.");
       }
     }
 
