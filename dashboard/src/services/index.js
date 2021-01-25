@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AuthService from './auth';
+import UsersService from './users';
+import router from '../router/index';
 
 const api_envs = {
   production: '',
@@ -11,6 +13,16 @@ const httpClient = axios.create({
   baseURL: api_envs.local
 });
 
+httpClient.interceptors.request.use(config => {
+  const token = window.localStorage.getItem('token');
+
+  if (token) {
+    config.headers.common.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 httpClient.interceptors.response.use(response => response, error => {
   const canThrowAnError = error.request.status === 0 || error.request.status === 500;
   
@@ -18,9 +30,14 @@ httpClient.interceptors.response.use(response => response, error => {
     throw new Error(error.message);
   }
 
+  if (error.response.status === 401) {
+    router.push({ name: 'Home' });
+  }
+
   return error;
 });
 
 export default {
-  auth: AuthService(httpClient)
+  auth: AuthService(httpClient),
+  users: UsersService(httpClient)
 }
