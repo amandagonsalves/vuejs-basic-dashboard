@@ -4,13 +4,15 @@
 
 <script>
 import Loading from './Loading.vue';
+import Copy from './Copy.vue';
 
 export default {
   props: {
     name: { type: String, required: true }
   },
   components: {
-    Loading
+    Loading,
+    Copy
   }
 }
 </script>
