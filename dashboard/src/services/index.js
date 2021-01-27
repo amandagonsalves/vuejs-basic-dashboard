@@ -35,6 +35,7 @@ httpClient.interceptors.response.use(response => {
   
   if (canThrowAnError) {
     setGlobalLoading(false);
+    
     throw new Error(error.message);
   }
 

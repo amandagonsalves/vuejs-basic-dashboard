@@ -26,6 +26,8 @@ export default {
 
         if (!token) {
           router.push({ name: 'Home' });
+          
+          return;
         }
 
         const { data } = await services.users.getMe();
