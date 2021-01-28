@@ -12,9 +12,17 @@
     </div>
 
     <div class="flex justify-center w-full pb-20">
-      <div class="w-4/5 max-w-6xl py-10 grid-cols-4 gap-2">
+      <div class="w-4/5 max-w-6xl py-10 grid grid-cols-4 gap-2">
         <div>
           <h1 class="text-3xl font-black brand-darkgray">Listagem</h1>
+          <suspense>
+            <template #default>
+              <Filters />
+            </template>
+            <template #fallback>
+              loading...
+            </template>
+          </suspense>
         </div>
         <div class="px-10 pt-20 col-span-3"></div>
       </div>
@@ -23,11 +31,13 @@
 </template>
 
 <script>
+import Filters from './Filters';
 import HeaderLogged from "../../components/HeaderLogged";
 
 export default {
   components: {
-    HeaderLogged
+    HeaderLogged,
+    Filters
   }
 };
 </script>
