@@ -31,8 +31,6 @@ export default {
         }
 
         const { data } = await services.users.getMe();
-
-        console.dir({ user: data })
         
         setCurrentUser(data);
       }
