@@ -69,7 +69,7 @@
           class="py-3 pl-5 pr-20 mt-2 rounded bg-brand-gray w-full lg:w-2/3 overflow-x-scroll"
         >
           <span v-if="state.hasError">Erro ao carregar o script</span>
-          <pre v-else>&lt;script src="https://igorhalfeld-feedbacker-widget.netlify.app?api_key={{store.User.currentUser.apiKey}}"&gt;&lt;/script&gt;</pre
+          <pre v-else>&lt;script src="https://amandagonsalves-feedbacker-widget.netlify.app?api_key={{store.User.currentUser.apiKey}}"&gt;&lt;/script&gt;</pre
           >
         </div>
       </div>
@@ -99,7 +99,7 @@ export default {
       isLoading: false,
     });
 
-    watch(() => store.User.currentUser, () => {
+    watch(() => store.User.currentUser.apiKey, () => {
         if (!store.Global.isLoading && !store.User.currentUser.apiKey) {
           handleError(true);
         }

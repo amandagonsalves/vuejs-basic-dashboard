@@ -14,7 +14,7 @@ function CreateUserHandler (db) {
 
     delete userResponse.password
     ctx.status = 200
-    ctx.body = userResponse
+    ctx.body = userResponse 
   }
 
   async function generateApiKey (ctx) {
@@ -23,7 +23,7 @@ function CreateUserHandler (db) {
 
     const user = await db.readOneById('users', id)
     const updated = await db.update('users', id, {
-      apiKey: [...user.apiKey, apiKey]
+      apiKey,
     })
     if (updated) {
       ctx.status = 202
