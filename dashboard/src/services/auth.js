@@ -1,4 +1,4 @@
-export default httpClient => ({
+module.exports = httpClient => ({
   register: async ({ name, email, password }) => {
     const response = await httpClient.post('/auth/register', { name, email, password });
 

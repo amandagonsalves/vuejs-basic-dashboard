@@ -24,7 +24,7 @@ describe('validators utils', () => {
     expect(validateEmptyAndEmail('amanda@')).toBe('Este campo precisa ser um email')
   });
 
-  it('should returns true if input is a valid email', () => {
-    expect(validateEmptyAndEmail('amanda@amanda.com')).toBe(true);
+  it('should return true if input is a valid email', () => {
+    expect(validateEmptyAndEmail('amanda@amanda.me')).toBe(true);
   });
 });
