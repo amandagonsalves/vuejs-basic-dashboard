@@ -1,4 +1,4 @@
-export function validateEmptyAndLength3(value) {
+function validateEmptyAndLength3(value) {
   if (!value) {
     return 'Este campo é obrigatório';
   }
@@ -10,7 +10,7 @@ export function validateEmptyAndLength3(value) {
   return true;
 }
 
-export function validateEmptyAndEmail(value) {
+function validateEmptyAndEmail(value) {
   if (!value) {
     return 'Este campo é obrigatório';
   }
@@ -22,4 +22,9 @@ export function validateEmptyAndEmail(value) {
   }
 
   return true;
+}
+
+module.exports = {
+  validateEmptyAndEmail,
+  validateEmptyAndLength3
 }
